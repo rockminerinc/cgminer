@@ -210,7 +210,7 @@ int opt_rock_speed = 0;
 int opt_rock_fan = 100;
 bool opt_rock_log = 0;
 bool opt_rock_debug= 0;
-float opt_rock_auto_freq = 350;
+int opt_rock_auto_freq = 0;
 int opt_rock_hard =0;
 int opt_rock_workmode  = 0;
 
@@ -1075,7 +1075,7 @@ static struct opt_table opt_config_table[] = {
 		     set_int_0_to_9999, opt_show_intval, &opt_rock_speed,
 		     "MP MODE"),
 	OPT_WITH_ARG("--rmu-auto",
-		     set_float_125_to_500, &opt_show_intval, &opt_rock_auto_freq,
+		     set_int_0_to_9999, &opt_show_intval, &opt_rock_auto_freq,
 		     "Set RockMiner frequency in MHz, range 125-500"),
 	OPT_WITH_ARG("--rmu-hard",
 		     set_int_0_to_100, opt_show_intval, &opt_rock_hard,
@@ -2583,17 +2583,18 @@ static void curses_print_status(void)
 		cg_mvwprintw(statuswin, 3, 0, " A:%.0f  R:%.0f  HW:%d  WU:%.1f/m",
 			     total_diff_accepted, total_diff_rejected, hw_errors,
 			     total_diff1 / total_secs * 60);
-	if(opt_rock_auto_freq)
-		cg_wprintw(statuswin, " AutoFreq:%.0fMHz",opt_rock_auto_freq);
-	else if(opt_rock_freq)
+	if(opt_rock_auto_freq&&(opt_rock_freq==0))
+		cg_wprintw(statuswin, " AutoFreq:%dMHz",opt_rock_auto_freq);
+	else  // if(opt_rock_freq)
 		cg_wprintw(statuswin, " Freq:%.0fMHz", opt_rock_freq);
 	if(opt_rock_debug)
 		cg_wprintw(statuswin, " Dev:%d", most_devices);
 	if(opt_rock_speed)
 		cg_wprintw(statuswin, " OKSpeed:%dGh/s", opt_rock_speed);
+	#if 0
 	if(opt_rock_workmode == 1)	// balance
 			{
-			opt_rock_auto_freq = 350;
+			opt_rock_auto_freq = 320;
 			opt_rock_freq =0;
 			opt_rock_fan = 0;
 			}
@@ -2609,7 +2610,7 @@ static void curses_print_status(void)
 			opt_rock_freq =0;
 			opt_rock_fan = 100;
 			}
-
+#endif
 	#else
 		cg_mvwprintw(statuswin, 3, 0, " A:%.0f  R:%.0f  HW:%d  WU:%.1f/m  Freq:%.0fMHz ",
 			     total_diff_accepted, total_diff_rejected, hw_errors,

@@ -1120,15 +1120,15 @@ void rockminer_product_det(int dev_id,unsigned char product_id)
 		{
 			rmdev[dev_id].product_id = ROCKMINER_T1;
 			rmdev[dev_id].chip_max = 12;
-			rmdev[dev_id].min_frq = 200;
+			rmdev[dev_id].min_frq = 0;
 			rmdev[dev_id].def_frq = 300;
 			rmdev[dev_id].max_frq = 400;
 		}
 	else if(product_id==RM_PRODUCT_T2)	
 		{
 			rmdev[dev_id].product_id = ROCKMINER_T2;
-			rmdev[dev_id].chip_max = 16;
-			rmdev[dev_id].min_frq = 200;
+			rmdev[dev_id].chip_max = 12;
+			rmdev[dev_id].min_frq = 0;
 			rmdev[dev_id].def_frq = 300;
 			rmdev[dev_id].max_frq = 400;
 		}
@@ -1185,7 +1185,7 @@ void icarus_device_init(int dev_id,unsigned char chip_no,unsigned char product_i
 								rmdev[dev_id].chip[i].pll =rockminer_freq(opt_rock_freq);
                             	}
 								else
-									rmdev[dev_id].chip[i].pll =rockminer_freq(rmdev[dev_id].def_frq);
+									rmdev[dev_id].chip[i].pll =rockminer_freq(opt_rock_auto_freq);//rockminer_freq(rmdev[dev_id].def_frq);
 							}
 						rmdev[dev_id].chip[i].error_cnt= 0;
 						temp_error_cnt = 0;

@@ -989,7 +989,7 @@ extern char *opt_icarus_options;
 extern char *opt_icarus_timing;
 extern float opt_anu_freq;
 extern float opt_rock_freq;
-extern float opt_rock_auto_freq;
+extern int opt_rock_auto_freq;
 extern int opt_rock_speed;
 extern int opt_rock_fan ;
 extern bool opt_rock_log ;
